@@ -1,0 +1,17 @@
+{
+  "name": "akshay-backend",
+  "version": "1.0.0",
+  "description": "A backend with akshay ",
+  "keywords": [
+    "javascript",
+    "backend",
+    "akshay"
+  ],
+  "license": "ISC",
+  "author": "Akshay Rahangdale",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
