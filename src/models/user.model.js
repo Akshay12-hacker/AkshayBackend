@@ -36,6 +36,7 @@ const userSchema = new Schema(
     password: {
         type: String,
         required: [true, 'Password is required'],
+        select: false,
     },
     refreshTokens: {
         type: String,
@@ -56,7 +57,11 @@ userSchema.pre("save", async function () {
 });
 
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password);
+    if (!password || !this.password) {
+        throw new Error('Password is missing for comparison');
+    }
+
+    return await bcrypt.compare(password.toString(), this.password.toString());
 };
 
 userSchema.methods.generateAccessTokens = function () {

@@ -93,13 +93,13 @@ const loginUser = asyncHandler(async (req, res) => {
     // send cookies and response
 
     const {email,username, password} = req.body;
-    if(!username || !email) {
+    if(!username && !email) {
         throw new ApiError(400, 'Username or email is required');
     }
 
     const user = await User.findOne({
         $or: [{username}, {email}]
-    });
+    }).select('+password +refreshTokens');
 
     if(!user) {
         throw new ApiError(404, 'User not found');
@@ -154,4 +154,4 @@ const logoutUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, null, 'User logged out successfully'));
 });
 
-export {registerUser};
+export {registerUser,loginUser, logoutUser};
